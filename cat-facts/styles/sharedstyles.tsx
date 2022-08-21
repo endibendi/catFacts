@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-  padding-top: 80px;
+  margin: auto;
+  min-width: 330px;
+  max-width: 680px;
+  padding: 0 30px;
   min-height: 100vh;
 `;
 
