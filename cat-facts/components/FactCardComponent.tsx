@@ -3,7 +3,7 @@ import LikeButton from "../components/LikeButton";
 import { IoHeartDislikeOutline, IoHeartOutline } from "react-icons/io5";
 
 const FactCard = styled.div`
-  margin-bottom: 54px;
+  margin-bottom: 81px;
 
   &:last-of-type {
     margin-bottom: 0;
@@ -12,7 +12,7 @@ const FactCard = styled.div`
 
 const Text = styled.p`
   margin-top: 0;
-  margin-bottom: 36px;
+  margin-bottom: 24px;
   font-size: 24px;
   line-height: 32px;
   text-align: center;
@@ -24,6 +24,10 @@ const LikeButtonContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   max-width: 330px;
+
+  @media screen and (min-width: 768px) {
+    max-width: 460px;
+  }
 `;
 
 type TProps = {
