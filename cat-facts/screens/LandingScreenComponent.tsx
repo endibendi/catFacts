@@ -3,6 +3,7 @@ import Head from "next/head";
 import { Container, Main, Title } from "../styles/sharedstyles";
 import PrimaryButton from "../components/PrimaryButton";
 import FactCardComponent from "../components/FactCardComponent";
+import { TCatFact } from "../types/commonTypes";
 
 const HeroSection = styled.section`
   margin-top: 80px;
@@ -25,10 +26,16 @@ const ButtonContainer = styled.div`
 `;
 
 const ContentSection = styled.section`
+  margin-top: 54px;
   margin-bottom: 54px;
 `;
 
-const LandingScreenComponent = () => {
+type TProps = {
+  onGetFactsClick: () => void;
+  catFacts: TCatFact[];
+};
+
+const LandingScreenComponent = ({ onGetFactsClick, catFacts }: TProps) => {
   return (
     <>
       <Head>
@@ -46,23 +53,22 @@ const LandingScreenComponent = () => {
             <HeroImage>
               <img src="/cat-illustration.svg" />
             </HeroImage>
-            <ButtonContainer>
-              <PrimaryButton title="Get the facts!" onClick={() => {}} />
-            </ButtonContainer>
+            {!catFacts && (
+              <ButtonContainer>
+                <PrimaryButton
+                  title="Get the facts!"
+                  onClick={onGetFactsClick}
+                />
+              </ButtonContainer>
+            )}
           </HeroSection>
-
-          <ContentSection>
-            <FactCardComponent />
-            <FactCardComponent />
-            <FactCardComponent />
-            <FactCardComponent />
-            <FactCardComponent />
-            <FactCardComponent />
-            <FactCardComponent />
-            <FactCardComponent />
-            <FactCardComponent />
-            <FactCardComponent />
-          </ContentSection>
+          {catFacts && (
+            <ContentSection>
+              {catFacts.map((catFact, index) => {
+                return <FactCardComponent key={index} catFact={catFact.fact} />;
+              })}
+            </ContentSection>
+          )}
         </Container>
       </Main>
     </>

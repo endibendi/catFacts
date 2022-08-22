@@ -26,13 +26,14 @@ const LikeButtonContainer = styled.div`
   max-width: 330px;
 `;
 
-const FactCardComponent = () => {
+type TProps = {
+  catFact: string;
+};
+
+const FactCardComponent = ({ catFact }: TProps) => {
   return (
     <FactCard>
-      <Text>
-        Unlike dogs, cats do not have a sweet tooth. Scientists believe this is
-        due to a mutation in a key taste receptor.
-      </Text>
+      <Text>{catFact}</Text>
       <LikeButtonContainer>
         <LikeButton
           title="like"
