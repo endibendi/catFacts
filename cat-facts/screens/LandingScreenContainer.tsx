@@ -3,25 +3,35 @@ import LandingScreenComponent from "./LandingScreenComponent";
 
 const LandingScreenContainer = () => {
   const [catFacts, setCatFacts] = useState(undefined);
+  const [links, setLinks] = useState(undefined);
 
-  const handleGetFactsClick = async () => {
-    const res = await fetch("https://catfact.ninja/facts");
+  const getApiData = async (url: string) => {
+    const res = await fetch(url);
 
     if (!res.ok) {
       console.error(`Could not load cat facts ${res.status}`);
       return;
     }
 
-    const { data } = await res.json();
+    const { data, links } = await res.json();
     setCatFacts(data);
+    setLinks(links);
   };
 
-  console.log(catFacts);
+  const handleGetFactsClick = async () => {
+    getApiData("https://catfact.ninja/facts");
+  };
+
+  const handlePageLinkClick = async (url: string) => {
+    getApiData(url);
+  };
 
   return (
     <LandingScreenComponent
       onGetFactsClick={handleGetFactsClick}
       catFacts={catFacts}
+      links={links}
+      onPageLinkClick={handlePageLinkClick}
     />
   );
 };

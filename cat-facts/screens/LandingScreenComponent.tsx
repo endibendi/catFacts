@@ -3,7 +3,8 @@ import Head from "next/head";
 import { Container, Main, Title } from "../styles/sharedstyles";
 import PrimaryButton from "../components/PrimaryButton";
 import FactCardComponent from "../components/FactCardComponent";
-import { TCatFact } from "../types/commonTypes";
+import { TCatFact, TLink } from "../types/commonTypes";
+import PageLink from "../components/PageLink";
 
 const HeroSection = styled.section`
   margin-top: 80px;
@@ -30,12 +31,23 @@ const ContentSection = styled.section`
   margin-bottom: 54px;
 `;
 
+const PageLinkContainer = styled.section`
+  margin-top: 81px;
+`;
+
 type TProps = {
   onGetFactsClick: () => void;
   catFacts: TCatFact[];
+  links: TLink[];
+  onPageLinkClick: (string) => void;
 };
 
-const LandingScreenComponent = ({ onGetFactsClick, catFacts }: TProps) => {
+const LandingScreenComponent = ({
+  onGetFactsClick,
+  catFacts,
+  links,
+  onPageLinkClick,
+}: TProps) => {
   return (
     <>
       <Head>
@@ -67,6 +79,21 @@ const LandingScreenComponent = ({ onGetFactsClick, catFacts }: TProps) => {
               {catFacts.map((catFact, index) => {
                 return <FactCardComponent key={index} catFact={catFact.fact} />;
               })}
+              <PageLinkContainer>
+                {links.map((link, index) => {
+                  const { label, active, url } = link;
+
+                  return (
+                    <PageLink
+                      key={index}
+                      label={label}
+                      active={active}
+                      url={url}
+                      onClick={onPageLinkClick}
+                    />
+                  );
+                })}
+              </PageLinkContainer>
             </ContentSection>
           )}
         </Container>
