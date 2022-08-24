@@ -36,14 +36,12 @@ const PageLinkContainer = styled.section`
 `;
 
 type TProps = {
-  onGetFactsClick: () => void;
   catFacts: TCatFact[];
   links: TLink[];
   onPageLinkClick: (string) => void;
 };
 
 const LandingScreenComponent = ({
-  onGetFactsClick,
   catFacts,
   links,
   onPageLinkClick,
@@ -65,14 +63,6 @@ const LandingScreenComponent = ({
             <HeroImage>
               <img src="/cat-illustration.svg" />
             </HeroImage>
-            {!catFacts && (
-              <ButtonContainer>
-                <PrimaryButton
-                  title="Get the facts!"
-                  onClick={onGetFactsClick}
-                />
-              </ButtonContainer>
-            )}
           </HeroSection>
           {catFacts && (
             <ContentSection>

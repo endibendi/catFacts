@@ -8,3 +8,8 @@ export type TLink = {
   label: string;
   active: boolean;
 };
+
+export type TCatFactApiResponse = {
+  data: TCatFact[];
+  links: TLink[];
+};

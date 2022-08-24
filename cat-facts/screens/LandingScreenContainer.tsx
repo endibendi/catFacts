@@ -1,11 +1,16 @@
 import { useState } from "react";
+import { TCatFactApiResponse } from "../types/commonTypes";
 import LandingScreenComponent from "./LandingScreenComponent";
 
-const LandingScreenContainer = () => {
-  const [catFacts, setCatFacts] = useState(undefined);
-  const [links, setLinks] = useState(undefined);
+type TProps = {
+  data: TCatFactApiResponse;
+};
 
-  const getApiData = async (url: string) => {
+const LandingScreenContainer = ({ data }: TProps) => {
+  const [catFacts, setCatFacts] = useState(data.data);
+  const [links, setLinks] = useState(data.links);
+
+  const handlePageLinkClick = async (url: string) => {
     const res = await fetch(url);
 
     if (!res.ok) {
@@ -18,17 +23,8 @@ const LandingScreenContainer = () => {
     setLinks(links);
   };
 
-  const handleGetFactsClick = async () => {
-    getApiData("https://catfact.ninja/facts");
-  };
-
-  const handlePageLinkClick = async (url: string) => {
-    getApiData(url);
-  };
-
   return (
     <LandingScreenComponent
-      onGetFactsClick={handleGetFactsClick}
       catFacts={catFacts}
       links={links}
       onPageLinkClick={handlePageLinkClick}
