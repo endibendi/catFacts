@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import LikeButton from "../components/LikeButton";
 import { IoHeartDislikeOutline, IoHeartOutline } from "react-icons/io5";
+import { useState } from "react";
 
 const FactCard = styled.div`
   margin-bottom: 81px;
@@ -35,19 +36,39 @@ type TProps = {
 };
 
 const FactCardComponent = ({ catFact }: TProps) => {
+  const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
+
+  const handleLikeClick = () => {
+    if (disliked) {
+      setDisliked(false);
+    }
+    setLiked(!liked);
+  };
+  const handleDislikeClick = () => {
+    if (liked) {
+      setLiked(false);
+    }
+    setDisliked(!disliked);
+  };
+
   return (
     <FactCard>
       <Text>{catFact}</Text>
       <LikeButtonContainer>
         <LikeButton
           title="like"
+          liked={liked}
+          disliked={disliked}
           primary
-          onClick={() => {}}
+          onClick={handleLikeClick}
           icon={<IoHeartOutline />}
         />
         <LikeButton
           title="dislike"
-          onClick={() => {}}
+          liked={disliked}
+          disliked={disliked}
+          onClick={handleDislikeClick}
           icon={<IoHeartDislikeOutline />}
         />
       </LikeButtonContainer>

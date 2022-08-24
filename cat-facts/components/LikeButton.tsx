@@ -1,7 +1,7 @@
 import { ReactElement } from "react";
 import styled from "styled-components";
 
-const Button = styled.button<{ primary }>`
+const Button = styled.button<{ primary; liked; disliked }>`
   display: flex;
   align-items: center;
   margin: auto;
@@ -10,6 +10,11 @@ const Button = styled.button<{ primary }>`
   background-color: #fff;
   font-family: inherit;
   font-size: 24px;
+
+  svg {
+    stroke: ${({ liked }) => (liked ? "#df2929" : "")};
+    fill: ${({ disliked }) => (disliked ? "#df2929" : "")};
+  }
 
   &:hover {
     color: #df2929;
@@ -28,12 +33,25 @@ type TProps = {
   title: string;
   onClick: () => void;
   primary?: boolean;
+  liked: boolean;
+  disliked: boolean;
   icon: ReactElement;
 };
 
-const LikeButton = ({ title, onClick, primary = false, icon }: TProps) => {
+const LikeButton = ({
+  title,
+  onClick,
+  primary = false,
+  liked,
+  disliked,
+  icon,
+}: TProps) => {
   return (
-    <Button onClick={onClick} primary={primary}>
+    <Button
+      onClick={onClick}
+      disliked={disliked}
+      liked={liked}
+      primary={primary}>
       <Icon>{icon}</Icon>
       {title}
     </Button>
