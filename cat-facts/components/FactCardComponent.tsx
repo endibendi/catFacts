@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import LikeButton from "../components/LikeButton";
 import { IoHeartDislikeOutline, IoHeartOutline } from "react-icons/io5";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const FactCard = styled.div`
   margin-bottom: 81px;
@@ -39,12 +39,43 @@ const FactCardComponent = ({ catFact }: TProps) => {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
 
+  console.log(catFact, liked, disliked);
+
+  useEffect(() => {
+    if (liked) {
+      localStorage.setItem(catFact, "liked");
+    }
+
+    if (disliked) {
+      localStorage.setItem(catFact, "disliked");
+    }
+
+    if (!liked && !disliked) {
+      localStorage.removeItem(catFact);
+    }
+  }, [liked, disliked]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const storageState = localStorage.getItem(catFact);
+
+    if (storageState === "liked") {
+      setLiked(true);
+    } else if (storageState === "disliked") {
+      setDisliked(true);
+    } else if (storageState === null) {
+      setLiked(false);
+      setDisliked(false);
+    }
+  }, [catFact]);
+
   const handleLikeClick = () => {
     if (disliked) {
       setDisliked(false);
     }
     setLiked(!liked);
   };
+
   const handleDislikeClick = () => {
     if (liked) {
       setLiked(false);
